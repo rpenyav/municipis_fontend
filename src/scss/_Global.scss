@@ -1,0 +1,37 @@
+#svgCapa83346623 {
+  display: inline;
+  width: 1400px;
+  height: auto;
+  background-color: #c7e6f6;
+  margin-top: 5px;
+  min-width: 300px;
+  min-height: 800px;
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+@media (max-width: 1161px) {
+  #svgCapa83346623 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 769px) {
+  #svgCapa83346623 {
+    width: 100%;
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 380px) {
+  #svgCapa83346623 {
+    width: 100%;
+    min-height: 350px;
+    padding-top: 20px;
+  }
+}
+
+.backplay-color {
+  background-color: #c7e6f6;
+}
