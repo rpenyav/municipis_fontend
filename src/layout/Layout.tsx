@@ -9,7 +9,9 @@ const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
   return (
     <div>
       <Header />
-      <main>{children}</main>
+      <main>
+        <div className="container-fluid">{children}</div>
+      </main>
       <Footer /> <ToastContainer />
     </div>
   );

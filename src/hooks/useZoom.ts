@@ -1,38 +1,30 @@
-// /hooks/useZoom.ts
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-/**
- * Hook para actualizar el zoom en función del ancho de pantalla.
- * @returns Un array con el nivel de zoom actual, una función para actualizar el zoom, y un booleano para indicar si el zoom está habilitado.
- */
-const useZoom = (): [number, (zoom: number) => void, boolean] => {
-  const [zoom, setZoom] = useState(192);
-  const [zoomEnabled, setZoomEnabled] = useState(true);
+// Definir el tipo para las propiedades de entrada del hook
+interface UseZoomProps {
+  defaultZoom: number;
+  onZoomIn?: () => void;
+  onZoomOut?: () => void;
+}
 
-  const toggleZoom = () => {
-    setZoomEnabled(!zoomEnabled);
-  };
+const useZoom = ({ defaultZoom, onZoomIn, onZoomOut }: UseZoomProps) => {
+  const [zoom, setZoom] = useState<number>(defaultZoom);
 
-  const updateZoomBasedOnScreenWidth = () => {
-    const screenWidth = window.innerWidth;
-    if (screenWidth <= 350) {
-      setZoom(80);
-    } else if (screenWidth <= 769) {
-      setZoom(150);
-    } else {
-      setZoom(192);
+  const zoomIn = () => {
+    if (onZoomIn) {
+      onZoomIn();
     }
+    setZoom((prevZoom) => Math.min(prevZoom + 0.1, 5));
   };
 
-  useEffect(() => {
-    updateZoomBasedOnScreenWidth();
-    window.addEventListener("resize", updateZoomBasedOnScreenWidth);
-    return () => {
-      window.removeEventListener("resize", updateZoomBasedOnScreenWidth);
-    };
-  }, []);
+  const zoomOut = () => {
+    if (onZoomOut) {
+      onZoomOut();
+    }
+    setZoom((prevZoom) => Math.max(prevZoom - 0.1, 0.1));
+  };
 
-  return [zoom, setZoom, zoomEnabled];
+  return { zoom, zoomIn, zoomOut };
 };
 
 export default useZoom;

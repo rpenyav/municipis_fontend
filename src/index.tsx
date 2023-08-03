@@ -2,6 +2,8 @@ import React from "react";
 import "./index.scss";
 import { Provider } from "react-redux";
 import "react-tippy/dist/tippy.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import { PersistGate } from "redux-persist/integration/react";
 import ReactDOM from "react-dom/client";
 import "react-toastify/dist/ReactToastify.css";

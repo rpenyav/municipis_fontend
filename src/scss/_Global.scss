@@ -32,6 +32,83 @@
   }
 }
 
+#svgCapa8336543623 {
+  display: inline;
+
+  height: auto;
+  background-color: #c7e6f6;
+  margin-top: 5px;
+
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+@media (max-width: 1161px) {
+  #svgCapa8336543623 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 769px) {
+  #svgCapa8336543623 {
+    width: 100%;
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 380px) {
+  #svgCapa8336543623 {
+    width: 100%;
+    min-height: 350px;
+    padding-top: 20px;
+  }
+}
+
 .backplay-color {
   background-color: #c7e6f6;
+}
+
+.image-zi {
+  width: auto;
+  height: 130px;
+}
+
+.h5-label {
+  font-size: 13px;
+  padding: 0px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.h5-content {
+  padding: 0px;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0px;
+}
+
+.btn.custom-hover:hover {
+  background-color: skyblue;
+}
+
+.button-text-size {
+  font-size: 16px;
+}
+.cursor-pointer {
+  cursor: pointer;
+  stroke: rgb(211, 211, 211);
+  stroke-width: 0.2;
+}
+
+.custom-btn {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.custom-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0); /* Transparente */
 }

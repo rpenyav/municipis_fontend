@@ -31,6 +31,7 @@ export interface Municipio {
   m_instagram: string;
   fotoplano: string;
   deenei: string;
+  idcomarca: number;
   comarca: Comarca;
   vegueria: Vegueria;
   provincia: Provincia;
@@ -40,24 +41,24 @@ export interface Municipio {
   llocsinteres: LlocsInteres[];
 }
 
-interface Comarca {
-  id: number;
+export interface Comarca {
+  idcomarca: number;
   nom: string;
   idprovincia: number;
   idvegueria: number;
 }
 
-interface Provincia {
+export interface Provincia {
   id: number;
   nom: string;
 }
 
-interface Vegueria {
+export interface Vegueria {
   id: number;
   nom: string;
 }
 
-interface Enllac {
+export interface Enllac {
   id: number;
   identificador: string;
   titol: string;
@@ -65,14 +66,14 @@ interface Enllac {
   url: string;
 }
 
-interface Imatges {
+export interface Imatges {
   id: number;
   identificador: string;
   title: string;
   fotografia: string;
 }
 
-interface Texts {
+export interface Texts {
   id: number;
   identificador: string;
   titol: string;
@@ -82,7 +83,7 @@ interface Texts {
   fotografia3: string;
 }
 
-interface LlocsInteres {
+export interface LlocsInteres {
   id: number;
   identificador: string;
   titol: string;
