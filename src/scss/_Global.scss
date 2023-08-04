@@ -1,3 +1,8 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #c7e6f6;
+}
+
 #svgCapa83346623 {
   display: inline;
   width: 1400px;
@@ -65,6 +70,16 @@
   }
 }
 
+.collapse-content {
+  transition: width 0.5s ease-out;
+  width: 100%;
+  overflow: hidden;
+}
+
+.collapsed {
+  width: 0;
+}
+
 .backplay-color {
   background-color: #c7e6f6;
 }
@@ -111,4 +126,86 @@
 
 .custom-modal-backdrop {
   background-color: rgba(0, 0, 0, 0); /* Transparente */
+}
+
+.border-left-collapsable {
+  border-left: 1px solid #8db2e2;
+  background-color: #d0eaf7;
+}
+
+/* ZOOM BUTTONS */
+.zoom-buttons {
+  width: 15px;
+  height: 15px;
+  border: 0;
+  background-color: #2f487b;
+  margin: 0 auto;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.zoom-buttons i {
+  font-size: 10px;
+}
+.zoom-buttons:hover {
+  background-color: #1a3049;
+}
+
+/* HEADER and FOOTER*/
+
+.bg-blue-municipis {
+  background-color: #2f487b;
+  color: white;
+
+  h1 {
+    font-weight: 600;
+    font-size: 32px;
+  }
+
+  h5 {
+    font-weight: normal;
+    font-size: 16px;
+  }
+}
+
+.footer-height {
+  height: 350px;
+}
+
+.header-menu-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-menu-list li {
+  list-style-type: none;
+}
+
+.link-menu-superior {
+  color: white;
+  text-decoration: none;
+}
+
+.link-menu-superior:hover {
+  text-decoration: underline;
+}
+
+/*    */
+.h3-nom-provincia {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.h4-nom-comarca {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: capitalize;
 }

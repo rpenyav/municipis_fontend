@@ -20,7 +20,7 @@ const useNavigateAndResetComarca = () => {
       let formattedNomComarca = formatString(selectedNomComarca);
       console.log("selectedComarca", selectedComarca);
       navigate(`/comarca/${selectedComarca}/${formattedNomComarca}`);
-      dispatch(setSelectedComarca({ idcomarca: 0, nom: "" }));
+      dispatch(setSelectedComarca({ idcomarca: 0, nom: "", idprovincia: 0 }));
     }
   }, [selectedComarca, navigate, dispatch, selectedNomComarca]);
 };

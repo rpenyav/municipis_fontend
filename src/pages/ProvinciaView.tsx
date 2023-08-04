@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Layout from "../layout/Layout";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useMunicipiosPorComarca } from "../hooks/useMunicipiosPorComarca";
+import { useMunicipiosPorProvincia } from "../hooks/useMunicipiosPorProvincia";
 import MunicipioSVG from "../components/mapa/MunicipioSvg";
 import {
   AccordionSummary,
@@ -16,15 +16,19 @@ import { Accordion, Collapse } from "react-bootstrap";
 import SearchPattern from "../components/buscador/SearchPattern";
 import useDrag from "../hooks/useDrag";
 import useSvgTransform from "../hooks/useSvgTransform";
-import useNavigateAndResetComarca from "../hooks/useNavigateAndResetComarca";
+import useNavigateAndResetProvincia from "../hooks/useNavigateAndResetProvincia";
+import { Municipio } from "../models/municipio.interface";
 import CollapseButton from "../components/CollapseButton";
 import { getXandY } from "../helpers/segunProvincia";
-import useNavigateAndResetProvincia from "../hooks/useNavigateAndResetProvincia";
+import useNavigateAndResetComarca from "../hooks/useNavigateAndResetComarca";
 
-const ComarcaView = () => {
-  // Obtener el valor de selectedComarca del parámetro de la URL y convertirlo a número
-  const { idcomarca, nom } = useParams<{ idcomarca: string; nom: string }>();
-  const selectedComarca = parseInt(idcomarca!);
+const ProvinciaView = () => {
+  // Obtener el valor de selectedProvincia del parámetro de la URL y convertirlo a número
+  const { idprovincia, nom } = useParams<{
+    idprovincia: string;
+    nom: string;
+  }>();
+  const selectedProvincia = parseInt(idprovincia!);
   const [selectedMunicipio, setSelectedMunicipio] = useState<string | null>(
     null
   );
@@ -45,7 +49,7 @@ const ComarcaView = () => {
   };
   //desde el selector de comarcas enviamos a redux el dato sobre el identificador y nombre elegidos
   // posteriormente los recogemos desde este hook para hacer el desvio a la url de comarcas
-  const { selectedProvincia } = useNavigateAndResetProvincia();
+  useNavigateAndResetProvincia();
 
   //desde el selector de comarcas enviamos a redux el dato sobre el identificador y nombre elegidos
   // posteriormente los recogemos desde este hook para hacer el desvio a la url de comarcas
@@ -57,10 +61,23 @@ const ComarcaView = () => {
 
   // Usar el hook useMunicipios para obtener los municipios de la comarca seleccionada
   const { municipios, status, error, reload } =
-    useMunicipiosPorComarca(selectedComarca);
+    useMunicipiosPorProvincia(selectedProvincia);
 
   const ref = useRef<SVGSVGElement>(null);
-  const transform = useSvgTransform(ref, municipios, 10);
+  const transform = useSvgTransform(
+    ref,
+    municipios,
+    selectedProvincia === 1 ? 2.7 : 3.7 //el tamaño de Lleida (idprovincia 1) nos condiciona a regular la escala solo para esta provincia
+  );
+
+  // Definir inicialmente las coordenadas como un estado
+  const [coordinates, setCoordinates] = useState({ xvalor: 0, yvalor: 0 });
+
+  // Actualizar las coordenadas cada vez que selectedProvincia cambia
+  useEffect(() => {
+    const newCoordinates = getXandY(selectedProvincia);
+    setCoordinates(newCoordinates);
+  }, [selectedProvincia]);
 
   return (
     <Layout>
@@ -81,7 +98,7 @@ const ComarcaView = () => {
             >
               {municipios &&
                 municipios.map(
-                  (municipio) =>
+                  (municipio: Municipio) =>
                     municipio &&
                     municipio.identificador && (
                       <MunicipioSVG
@@ -95,15 +112,19 @@ const ComarcaView = () => {
                     )
                 )}
             </g>
-
-            <foreignObject x="-40" y="50" width="250" height="50">
+            <foreignObject
+              x={coordinates.xvalor}
+              y={coordinates.yvalor}
+              width="250"
+              height="50"
+            >
               <div>
-                <h4 className="h4-nom-comarca">{nom}</h4>
+                <h3 className="h3-nom-provincia">{nom}</h3>
               </div>
             </foreignObject>
           </svg>
         </div>
-        <div className="col-lg   border-left-collapsable">
+        <div className="col-lg  border-left-collapsable ">
           <CollapseButton
             isCollapsed={isCollapsed}
             handleCollapse={handleCollapse}
@@ -123,4 +144,4 @@ const ComarcaView = () => {
   );
 };
 
-export default ComarcaView;
+export default ProvinciaView;

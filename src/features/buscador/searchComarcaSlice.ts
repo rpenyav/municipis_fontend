@@ -5,6 +5,7 @@ import { Comarca } from "../../models/municipio.interface";
 interface SearchComarcaState {
   selectedComarca: number | null;
   selectedNomComarca: string | null;
+  selectedIdProvComarca: number | null;
   comarcas: Comarca[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -13,6 +14,7 @@ interface SearchComarcaState {
 const initialState: SearchComarcaState = {
   selectedComarca: null,
   selectedNomComarca: "",
+  selectedIdProvComarca: null,
   comarcas: [],
   status: "idle",
   error: null,
@@ -34,14 +36,23 @@ export const searchComarcaSlice = createSlice({
   reducers: {
     setSelectedComarca: (
       state,
-      action: PayloadAction<{ idcomarca: number; nom: string } | null>
+      action: PayloadAction<{
+        idcomarca: number;
+        idprovincia: number;
+        nom: string;
+      } | null>
     ) => {
       state.selectedComarca = action.payload?.idcomarca || null;
+      state.selectedIdProvComarca = action.payload?.idprovincia || null;
       state.selectedNomComarca = action.payload?.nom || null;
     },
     setSelectedNomComarca: (state, action: PayloadAction<string | null>) => {
       state.selectedNomComarca = action.payload;
       console.log("MIOCMA", state.selectedNomComarca);
+    },
+
+    setSelectedIdProvComarca: (state, action: PayloadAction<number | null>) => {
+      state.selectedIdProvComarca = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -63,7 +74,10 @@ export const searchComarcaSlice = createSlice({
   },
 });
 
-export const { setSelectedComarca, setSelectedNomComarca } =
-  searchComarcaSlice.actions;
+export const {
+  setSelectedComarca,
+  setSelectedNomComarca,
+  setSelectedIdProvComarca,
+} = searchComarcaSlice.actions;
 
 export default searchComarcaSlice.reducer;

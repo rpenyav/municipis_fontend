@@ -32,6 +32,7 @@ export interface Municipio {
   fotoplano: string;
   deenei: string;
   idcomarca: number;
+  idprovincia: number;
   comarca: Comarca;
   vegueria: Vegueria;
   provincia: Provincia;
@@ -49,7 +50,7 @@ export interface Comarca {
 }
 
 export interface Provincia {
-  id: number;
+  idprovincia: number;
   nom: string;
 }
 

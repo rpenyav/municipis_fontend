@@ -54,7 +54,7 @@ const PorComarca: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const idcomarca = Number(event.target.value);
     if (isNaN(idcomarca) || idcomarca === 0) {
-      dispatch(setSelectedComarca({ idcomarca: 0, nom: "" }));
+      dispatch(setSelectedComarca({ idcomarca: 0, nom: "", idprovincia: 0 }));
       navigate(`/`);
       localStorage.removeItem("selectedComarcaId"); //Limpiamos el valor en localStorage si la selección es nula y redireccionamos al inicio
     } else {
@@ -63,7 +63,11 @@ const PorComarca: React.FC = () => {
       );
       if (selectedComarca) {
         dispatch(
-          setSelectedComarca({ idcomarca: idcomarca, nom: selectedComarca.nom })
+          setSelectedComarca({
+            idcomarca: idcomarca,
+            nom: selectedComarca.nom,
+            idprovincia: selectedComarca.idprovincia,
+          })
         );
         setSelectedComarcaId(idcomarca);
         localStorage.setItem("selectedComarcaId", idcomarca.toString()); //Guardamos el valor en localStorage cuando la selección cambia

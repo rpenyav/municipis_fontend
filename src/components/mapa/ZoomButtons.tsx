@@ -20,27 +20,24 @@ const ZoomButtons = ({
 
   return (
     <foreignObject
-      x="10"
-      y="10"
-      width="50"
-      height="120"
+      x="15"
+      y="15"
+      width="40"
+      height="100"
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        borderRadius: "8px",
       }}
     >
-      <button onClick={zoomIn} style={{ height: "50px", fontSize: "2em" }}>
-        +
+      <button className="zoom-buttons" onClick={zoomIn}>
+        <i className="bi bi-plus"></i>
       </button>
       <button
+        className="zoom-buttons"
         onClick={zoomOut}
         disabled={zoom === minZoom}
-        style={{ height: "50px", fontSize: "2em" }}
       >
-        -
+        <i className="bi bi-dash"></i>
       </button>
     </foreignObject>
   );

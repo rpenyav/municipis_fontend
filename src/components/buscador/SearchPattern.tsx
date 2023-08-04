@@ -6,7 +6,7 @@ import PorVegueria from "./PorVegueria";
 
 const SearchPattern = () => {
   return (
-    <div>
+    <div className="p-4">
       <div className="row">
         <div className="col mb-3">
           <label className="form-label" htmlFor="searchInput">
@@ -26,7 +26,7 @@ const SearchPattern = () => {
         </div>
       </div>
 
-      <PorProvincia />
+      <PorProvincia key="provincia-component" />
       <PorComarca key="comarca-component" />
       <PorVegueria />
       <PorHabitantes />

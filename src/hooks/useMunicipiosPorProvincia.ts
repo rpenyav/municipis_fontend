@@ -8,16 +8,15 @@ import { toast } from "react-toastify";
 /**
  * Hook personalizado para obtener y manejar el estado 'municipios'.
  *
- * @param selectedComarca El idcomarca seleccionado para filtrar los municipios.
- * @returns Un objeto que contiene los municipios filtrados por el idcomarca,
+ * @param selectedProvincia El idprovincia seleccionado para filtrar los municipios.
+ * @returns Un objeto que contiene los municipios filtrados por el idprovincia,
  *          el estado de la operación fetch, cualquier error que pueda haber ocurrido durante la operación y una función reload para volver a obtener los municipios.
  */
-
-export const useMunicipiosPorComarca = (selectedComarca: number) => {
+export const useMunicipiosPorProvincia = (selectedProvincia: number) => {
   const dispatch = useDispatch<AppDispatch>();
   const municipios = useSelector<RootState, Municipio[]>((state) =>
     state.municipios.municipios.filter(
-      (municipio) => municipio.idcomarca === selectedComarca
+      (municipio) => municipio.idprovincia === selectedProvincia
     )
   );
   const status = useSelector((state: RootState) => state.municipios.status);
@@ -37,7 +36,7 @@ export const useMunicipiosPorComarca = (selectedComarca: number) => {
 
   // Console.log para ver los registros filtrados
   useEffect(() => {
-    console.log("Municipios filtrados por comarca:", municipios);
+    console.log("Municipios filtrados por provincia:", municipios);
   }, [municipios]);
 
   return {

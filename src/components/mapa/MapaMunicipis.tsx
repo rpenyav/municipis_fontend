@@ -1,32 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  CircularProgress,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Box,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Button, CircularProgress, Collapse } from "@mui/material";
 import MunicipioSVG from "./MunicipioSvg";
-import useZoom from "../../hooks/useZoom";
-import usePadding from "../../hooks/usePadding";
 import useDrag from "../../hooks/useDrag";
 import { useMunicipios } from "../../hooks/useMunicipios";
-import ResponsiveBox from "../ResponsiveBox";
 import SearchPattern from "../buscador/SearchPattern";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { BrowserRouter, Route } from "react-router-dom";
 import useNavigateAndResetComarca from "../../hooks/useNavigateAndResetComarca";
-import { setSelectedComarca } from "../../features/buscador/searchComarcaSlice";
-import { formatString } from "../../helpers/formatString";
 import { Municipio } from "../../models/municipio.interface";
 import useSvgTransform from "../../hooks/useSvgTransform";
-import { useSelectedRegions } from "../../hooks/useSelectedRegions";
 import ZoomButtons from "./ZoomButtons";
-import { Collapse } from "@mui/material";
+import useNavigateAndResetProvincia from "../../hooks/useNavigateAndResetProvincia";
+import CollapseButton from "../CollapseButton";
 
 /**
  * MapaMunicipis es un componente que renderiza un mapa de municipios.
@@ -45,6 +28,10 @@ const MapaMunicipis = () => {
   //desde el selector de comarcas enviamos a redux el dato sobre el identificador y nombre elegidos
   // posteriormente los recogemos desde este hook para hacer el desvio a la url de comarcas
   useNavigateAndResetComarca();
+
+  //desde el selector de provincias enviamos a redux el dato sobre el identificador y nombre elegidos
+  // posteriormente los recogemos desde este hook para hacer el desvio a la url de provincias
+  useNavigateAndResetProvincia();
 
   // Manejador para cuando se hace clic en un municipio
   const handlePathClick = (identificador: string) => {
@@ -71,6 +58,7 @@ const MapaMunicipis = () => {
       prevZoom && prevZoom > MIN_ZOOM ? prevZoom - 0.1 : prevZoom
     );
   };
+
   const [isCollapsed, setIsCollapsed] = useState(
     () => localStorage.getItem("isCollapsed") === "true"
   );
@@ -86,6 +74,7 @@ const MapaMunicipis = () => {
   const handleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+
   // Función para renderizar el contenido dependiendo del estado
   const renderContent = () => {
     switch (status) {
@@ -111,7 +100,9 @@ const MapaMunicipis = () => {
               ? "col-lg-12 d-flex justify-content-center align-items-center backplay-color"
               : "col-lg-9 d-flex justify-content-center align-items-center backplay-color"
           }
-          style={{ transition: "all 0.3s ease-out" }}
+          style={{
+            transition: "all 0.8s ease-out",
+          }}
         >
           <svg
             id="svgCapa83346623"
@@ -157,35 +148,20 @@ const MapaMunicipis = () => {
             />
           </svg>
         </div>
-        <div className="col-lg ">
-          <Button
-            onClick={handleCollapse}
+        <div className="col-lg  border-left-collapsable">
+          <CollapseButton
+            isCollapsed={isCollapsed}
+            handleCollapse={handleCollapse}
+          />
+
+          <div
             style={{
-              position: isCollapsed ? "absolute" : "static",
-              top: "50px",
-              right: "50px",
-              padding: "0px",
-              margin: "0px",
-              width: "30px",
-              height: "30px",
+              transition: "opacity 0.3s ease-out",
+              opacity: isCollapsed ? 0 : 1,
             }}
           >
-            {isCollapsed ? (
-              <i
-                className="bi bi-arrow-left-circle-fill"
-                style={{ color: "black", fontSize: "20px" }}
-              ></i>
-            ) : (
-              <i
-                className="bi bi-arrow-right-circle-fill"
-                style={{ color: "black", fontSize: "20px" }}
-              ></i>
-            )}
-          </Button>
-
-          <Collapse in={!isCollapsed}>
             <SearchPattern />
-          </Collapse>
+          </div>
         </div>
       </div>
     </div>
